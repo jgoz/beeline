@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "settings", "settings", "{C4984AC1-6443-4E81-BC32-844DC1FF6A75}"
+	ProjectSection(SolutionItems) = preProject
+		Beeline.5.1.ReSharper = Beeline.5.1.ReSharper
+		Indentation.vssettings = Indentation.vssettings
+		nuget.config = nuget.config
+		Settings.FxCop = Settings.FxCop
+		Settings.StyleCop = Settings.StyleCop
+		SolutionEvents_Opened.macro = SolutionEvents_Opened.macro
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{01F67159-9800-4463-8C13-54BC725B3D50}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EDAA91FD-627A-46B6-AE18-AB6D084C1359}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proj", "proj", "{D8023CE5-E17E-4120-86B4-DF1C23409B22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0DCCC327-BE31-4F7F-9DAD-1AB42DBF6C27}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
