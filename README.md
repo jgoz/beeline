@@ -6,7 +6,7 @@ For example:
 ```c#
 public class WidgetController : Controller
 {
-    [Get("/widgets/{id}")]
+    [Route("widgets/{id}")]
     public ActionResponse Show(Guid id)
     {
         // ...
@@ -25,13 +25,14 @@ While centralized routing works perfectly well, the routing table can become unr
 This is where Beeline comes in. By moving the routing table definitions to the action method level, it triggers a subtle mindshift in controller development. We no longer try to structure our controllers or name our action methods to satisfy our desired URL schemes. Instead, we structure and name in a way that makes sense for our application logic and at the same time, we assign URL patterns in a way that makes sense for our public API.
 
 ### Code-as-documentation for URL patterns
-When you generate an empty controller using Visual Studio, it adds a comment to the `Index` action method, specifying the HTTP method used and the URL pattern followed. For example:
+When you generate a controller using Visual Studio, it adds comments to the controller's action methods that specify the HTTP method used and the URL pattern followed. For example:
 
 ```c#
-public class HomeController : Controller
+public class AccountController : Controller
 {
-    // GET: /Home/
-    public ActionResult Index() { /* ... */ }
+    // POST: /Account/LogOn/
+    [HttpPost]
+    public ActionResult LogOn(LogOnModel model) { /* ... */ }
 }
 ```
 
@@ -40,10 +41,10 @@ This is very useful documentation from a maintenance perspective, but what happe
 So instead of making this a comment, why not specify the route in this exact spot? That way when the URL changes, the documentation is forcibly updated, by nature of the fact that the route definition _is_ the documentation.
 
 ```c#
-public class HomeController : Controller
+public class AccountController : Controller
 {
-    [Get("/Home/")]
-    public ActionResult Index() { /* ... */ }
+    [HttpPost, Route("Account/LogOn")]
+    public ActionResult LogOn(LogOnModel model) { /* ... */ }
 }
 ```
 
@@ -51,10 +52,11 @@ This arguably clearer and helps us live DRY.
 
 ## API Documentation and Examples
 
-This section will be completed as code is written.
+See the [Wiki][wiki] for more documentation and examples.
 
 ## License
 
 This project is licensed under the [MIT license][mit]. See LICENSE for details.
 
 [mit]: http://www.opensource.org/licenses/mit-license.html
+[wiki]: https://github.com/jgoz/beeline/wiki
