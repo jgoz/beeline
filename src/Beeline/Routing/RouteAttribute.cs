@@ -13,41 +13,35 @@
 	/// <see cref="RouteCollectionExtensions.MapRoute(RouteCollection,string,string)"/> or its overloads,
 	/// routes are defined as attributes of the action methods to which they apply.
 	/// </remarks>
-	/// <seealso cref="GetAttribute"/>
-	/// <seealso cref="PostAttribute"/>
-	/// <seealso cref="PutAttribute"/>
-	/// <seealso cref="DeleteAttribute"/>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 	public class RouteAttribute : Attribute
 	{
-		private readonly HttpVerbs _method;
 		private readonly String _urlPattern;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteAttribute"/> class.
 		/// </summary>
-		/// <param name="method">The HTTP verb(s) that this route applies to.</param>
 		/// <param name="urlPattern">The URL pattern for this route.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="urlPattern"/> is null.</exception>
 		/// <remarks>
 		///	<paramref name="urlPattern"/> follows the pattern conventions from <see cref="RouteCollectionExtensions.MapRoute(RouteCollection,string,string)"/>.
 		///	For example, <c>"/Widgets/{id}"</c> adds a parameter named 'id' to the current route.
 		/// </remarks>
-		public RouteAttribute(HttpVerbs method, String urlPattern)
+		public RouteAttribute(String urlPattern)
 		{
 			if (urlPattern == null)
 				throw new ArgumentNullException("urlPattern", "A URL pattern is required for a route definition.");
 
-			_method = method;
 			_urlPattern = urlPattern;
 		}
 
-		internal RouteAttribute(RouteAttribute routeAttribute, String actionName, String controllerName)
-			: this(routeAttribute.Method, routeAttribute.UrlPattern)
+		internal RouteAttribute(RouteAttribute routeAttribute, HttpVerbs method, String actionName, String controllerName)
+			: this(routeAttribute.UrlPattern)
 		{
 			if (routeAttribute == null)
 				throw new ArgumentNullException("routeAttribute");
 
+			Method = method;
 			ActionName = actionName;
 			ControllerName = controllerName;
 
@@ -55,11 +49,6 @@
 			Defaults = routeAttribute.Defaults ?? new Object();
 			Constraints = routeAttribute.Constraints ?? new Object();
 		}
-
-		/// <summary>
-		/// Gets the HTTP method for which this route is valid.
-		/// </summary>
-		public HttpVerbs Method { get { return _method; } }
 
 		/// <summary>
 		/// Gets the URL pattern defined by this route.
@@ -95,6 +84,7 @@
 		/// </remarks>
 		public Object Constraints { get; set; }
 
+		internal HttpVerbs Method { get; private set; }
 		internal String ActionName { get; private set; }
 		internal String ControllerName { get; private set; }
 	}

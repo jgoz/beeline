@@ -8,13 +8,13 @@
 
 	public class AccountController : Controller
 	{
-		[Get("Account/LogOn")]
+		[Route("Account/LogOn")]
 		public ActionResult LogOn()
 		{
 			return View();
 		}
 
-		[HttpPost, Post("Account/LogOn")]
+		[HttpPost, Route("Account/LogOn")]
 		public ActionResult LogOn(LogOnModel model, string returnUrl)
 		{
 			if (ModelState.IsValid)
@@ -39,7 +39,7 @@
 			return View(model);
 		}
 
-		[Get("Account/LogOff")]
+		[Route("Account/LogOff")]
 		public ActionResult LogOff()
 		{
 			FormsAuthentication.SignOut();
@@ -47,13 +47,13 @@
 			return RedirectToAction("Index", "Home");
 		}
 
-		[Get("Account/Register")]
+		[Route("Account/Register")]
 		public ActionResult Register()
 		{
 			return View();
 		}
 
-		[HttpPost, Post("Account/Register")]
+		[HttpPost, Route("Account/Register")]
 		public ActionResult Register(RegisterModel model)
 		{
 			if (ModelState.IsValid)
@@ -76,14 +76,14 @@
 		}
 
 		[Authorize]
-		[Get("Account/ChangePassword")]
+		[Route("Account/ChangePassword")]
 		public ActionResult ChangePassword()
 		{
 			return View();
 		}
 
 		[Authorize]
-		[HttpPost, Post("Account/ChangePassword")]
+		[HttpPost, Route("Account/ChangePassword")]
 		public ActionResult ChangePassword(ChangePasswordModel model)
 		{
 			if (ModelState.IsValid)
@@ -113,7 +113,7 @@
 			return View(model);
 		}
 
-		[Get("Account/ChangePasswordSuccess")]
+		[Route("Account/ChangePasswordSuccess")]
 		public ActionResult ChangePasswordSuccess()
 		{
 			return View();

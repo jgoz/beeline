@@ -5,7 +5,7 @@
 
 	public class HomeController : Controller
 	{
-		[Get("")]
+		[Route("")]
 		public ActionResult Index()
 		{
 			ViewBag.Message = "Welcome to ASP.NET MVC!";
@@ -13,7 +13,7 @@
 			return View();
 		}
 
-		[Get("About")]
+		[Route("About")]
 		public ActionResult About()
 		{
 			return View();
