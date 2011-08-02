@@ -15,3 +15,5 @@ _ReSharper.*
 *.Cache
 *.cache
 ~$*
+lib/packages
+App_Data
