@@ -25,7 +25,7 @@
 
 			var actionMethods = assembly.GetTypes()
 				.Where(t => typeof(Controller).IsAssignableFrom(t))
-				.SelectMany(t => t.GetMethods(BindingFlags.Public));
+				.SelectMany(t => t.GetMethods());
 
 			return actionMethods.SelectMany(GetActionRouteAttributes);
 		}

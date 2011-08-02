@@ -48,9 +48,12 @@
 			if (routeAttribute == null)
 				throw new ArgumentNullException("routeAttribute");
 
-			Name = routeAttribute.Name ?? controllerName + "." + actionName;
-			Defaults = routeAttribute.Defaults ?? new RouteValueDictionary();
-			Constraints = routeAttribute.Constraints ?? new RouteValueDictionary();
+			ActionName = actionName;
+			ControllerName = controllerName;
+
+			Name = routeAttribute.Name ?? Method + "." + ControllerName + "." + ActionName;
+			Defaults = routeAttribute.Defaults ?? new Object();
+			Constraints = routeAttribute.Constraints ?? new Object();
 		}
 
 		/// <summary>
@@ -67,7 +70,7 @@
 		/// Gets or sets the name of this route.
 		/// </summary>
 		/// <remarks>
-		/// If unset, <see cref="Name"/> will default to <c>ControllerName.ActionName</c>.
+		/// If unset, <see cref="Name"/> will default to <c>Method.ControllerName.ActionName</c>.
 		/// </remarks>
 		public String Name { get; set; }
 
@@ -91,5 +94,8 @@
 		/// </para>
 		/// </remarks>
 		public Object Constraints { get; set; }
+
+		internal String ActionName { get; private set; }
+		internal String ControllerName { get; private set; }
 	}
 }

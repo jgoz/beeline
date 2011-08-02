@@ -20,10 +20,14 @@
 
 			Name = routeAttribute.Name;
 			Url = routeAttribute.UrlPattern;
-			Defaults = new RouteValueDictionary(routeAttribute.Defaults);
+			Defaults = new RouteValueDictionary(routeAttribute.Defaults)
+			{
+				{ "controller", routeAttribute.ControllerName },
+				{ "action", routeAttribute.ActionName }
+			};
 			Constraints = new RouteValueDictionary(routeAttribute.Constraints)
 			{
-				{ "methodMatches", new HttpMethodConstraint(GetHttpMethods(routeAttribute.Method)) }
+				{ "isValidMethod", new HttpMethodConstraint(GetHttpMethods(routeAttribute.Method)) }
 			};
 		}
 

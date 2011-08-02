@@ -18,6 +18,6 @@
 		/// </summary>
 		/// <param name="urlPattern">The URL pattern for this route.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="urlPattern"/> is null.</exception>
-		public PostAttribute(String urlPattern) : base(HttpVerbs.Get, urlPattern) { }
+		public PostAttribute(String urlPattern) : base(HttpVerbs.Post, urlPattern) { }
 	}
 }

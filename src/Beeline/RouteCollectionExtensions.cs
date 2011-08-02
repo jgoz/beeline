@@ -26,8 +26,18 @@
 
 			return routeAttributes
 				.Select(MvcRoute.FromAttribute)
-				.Select(r => routeCollection.MapRoute(r.Name, r.Url, r.Defaults, r.Constraints))
+				.Select(r => routeCollection.MapRoute(r))
 				.ToList();
+		}
+
+		private static Route MapRoute(this RouteCollection routeCollection, MvcRoute mvcRoute)
+		{
+			Route route = routeCollection.MapRoute(mvcRoute.Name, mvcRoute.Url);
+
+			route.Defaults = mvcRoute.Defaults;
+			route.Constraints = mvcRoute.Constraints;
+
+			return route;
 		}
 	}
 }
