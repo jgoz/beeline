@@ -50,10 +50,11 @@
     <Compile Include="..\VersionAssemblyInfo.cs">
       <Link>Properties\VersionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DiscoverActionMethods.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="MvcRoute.cs" />
+    <Compile Include="MethodInfoExtensions.cs" />
+    <Compile Include="RouteBuilder.cs" />
     <Compile Include="RouteCollectionExtensions.cs" />
-    <Compile Include="DiscoverRoutes.cs" />
     <Compile Include="Routing\RouteAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

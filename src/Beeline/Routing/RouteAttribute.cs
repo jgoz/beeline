@@ -35,21 +35,6 @@
 			_urlPattern = urlPattern;
 		}
 
-		internal RouteAttribute(RouteAttribute routeAttribute, HttpVerbs method, String actionName, String controllerName)
-			: this(routeAttribute.UrlPattern)
-		{
-			if (routeAttribute == null)
-				throw new ArgumentNullException("routeAttribute");
-
-			Method = method;
-			ActionName = actionName;
-			ControllerName = controllerName;
-
-			Name = routeAttribute.Name ?? Method + "." + ControllerName + "." + ActionName;
-			Defaults = routeAttribute.Defaults ?? new Object();
-			Constraints = routeAttribute.Constraints ?? new Object();
-		}
-
 		/// <summary>
 		/// Gets the URL pattern defined by this route.
 		/// </summary>
@@ -83,9 +68,5 @@
 		/// </para>
 		/// </remarks>
 		public Object Constraints { get; set; }
-
-		internal HttpVerbs Method { get; private set; }
-		internal String ActionName { get; private set; }
-		internal String ControllerName { get; private set; }
 	}
 }

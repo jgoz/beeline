@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Reflection;
 	using System.Web.Mvc;
 	using System.Web.Routing;
 	using Beeline.Routing;
@@ -13,29 +14,42 @@
 	public static class RouteCollectionExtensions
 	{
 		/// <summary>
-		/// Maps a collection of <see cref="RouteAttribute"/> attributes as routes in a specified route collection.
+		/// Searches the assembly containing <typeparamref name="T"/> for <see cref="RouteAttribute"/> declarations
+		/// and maps the results in a specified route collection.
+		/// </summary>
+		/// <typeparam name="T">A type in the assembly that will be searched.</typeparam>
+		/// <param name="routeCollection">The route collection.</param>
+		/// <returns>A list of <see cref="Route"/> objects added to <paramref name="routeCollection"/>.</returns>
+		public static IList<Route> MapRoutesInAssemblyOf<T>(this RouteCollection routeCollection)
+		{
+			return routeCollection.MapRoutesInAssembly(typeof(T).Assembly);
+		}
+
+		/// <summary>
+		/// Searches an assembly for <see cref="RouteAttribute"/> declarations and maps the results in a
+		/// specified route collection.
 		/// </summary>
 		/// <param name="routeCollection">The route collection.</param>
-		/// <param name="routeAttributes">The route attributes to map.</param>
-		/// <exception cref="ArgumentNullException">Thrown if <paramref name="routeAttributes"/> is null.</exception>
+		/// <param name="assembly">The assembly to search.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="assembly"/> is null.</exception>
 		/// <returns>A list of <see cref="Route"/> objects added to <paramref name="routeCollection"/>.</returns>
-		public static IList<Route> MapRoutesFromAttributes(this RouteCollection routeCollection, IEnumerable<RouteAttribute> routeAttributes)
+		public static IList<Route> MapRoutesInAssembly(this RouteCollection routeCollection, Assembly assembly)
 		{
-			if (routeAttributes == null)
-				throw new ArgumentNullException("routeAttributes");
+			if (assembly == null)
+				throw new ArgumentNullException("assembly");
 
-			return routeAttributes
-				.Select(MvcRoute.FromAttribute)
+			return DiscoverActionMethods.InAssembly(assembly)
+				.Select(RouteBuilder.FromActionMethod)
 				.Select(r => routeCollection.MapRoute(r))
 				.ToList();
 		}
 
-		private static Route MapRoute(this RouteCollection routeCollection, MvcRoute mvcRoute)
+		private static Route MapRoute(this RouteCollection routeCollection, RouteBuilder routeBuilder)
 		{
-			Route route = routeCollection.MapRoute(mvcRoute.Name, mvcRoute.Url);
+			Route route = routeCollection.MapRoute(routeBuilder.Name, routeBuilder.Url);
 
-			route.Defaults = mvcRoute.Defaults;
-			route.Constraints = mvcRoute.Constraints;
+			route.Defaults = routeBuilder.Defaults;
+			route.Constraints = routeBuilder.Constraints;
 
 			return route;
 		}

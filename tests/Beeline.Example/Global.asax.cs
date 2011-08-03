@@ -2,7 +2,6 @@
 {
 	using System.Web.Mvc;
 	using System.Web.Routing;
-	using Beeline;
 
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
@@ -18,7 +17,7 @@
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			routes.MapRoutesFromAttributes(DiscoverRoutes.InAssemblyOf<MvcApplication>());
+			routes.MapRoutesInAssemblyOf<MvcApplication>();
 		}
 
 		protected void Application_Start()
