@@ -6,7 +6,7 @@
 
 	internal static class EnumExtensions
 	{
-		public static IEnumerable<TEnum> GetFlagsValues<TEnum>(this Enum @enum)
+		public static IEnumerable<TEnum> GetFlagsValues<TEnum>(this Enum @enum) where TEnum : struct
 		{
 			if (!typeof(TEnum).IsEnum)
 				throw new ArgumentException("Expected enumeration for type argument TEnum.");
