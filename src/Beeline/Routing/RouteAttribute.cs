@@ -44,7 +44,7 @@
 		/// Gets or sets the name of this route.
 		/// </summary>
 		/// <remarks>
-		/// If unset, <see cref="Name"/> will default to <c>Method.ControllerName.ActionName</c>.
+		/// If unset, <see cref="Name"/> will default to <c>Verbs.ControllerName.ActionName</c>.
 		/// </remarks>
 		public String Name { get; set; }
 

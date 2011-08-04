@@ -14,7 +14,7 @@
 			return View();
 		}
 
-		[HttpPost, Route("Account/LogOn")]
+		[AcceptVerbs(HttpVerbs.Post | HttpVerbs.Put), Route("Account/LogOn")]
 		public ActionResult LogOn(LogOnModel model, string returnUrl)
 		{
 			if (ModelState.IsValid)
