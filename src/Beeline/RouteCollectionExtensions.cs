@@ -38,10 +38,18 @@
 			if (assembly == null)
 				throw new ArgumentNullException("assembly");
 
-			return DiscoverActionMethods.InAssembly(assembly)
+			return FindActionMethods(assembly)
 				.Select(RouteBuilder.FromActionMethod)
 				.Select(r => routeCollection.MapRoute(r))
 				.ToList();
+		}
+
+		private static IEnumerable<MethodInfo> FindActionMethods(Assembly assembly)
+		{
+			return assembly.GetTypes()
+				.Where(t => typeof(Controller).IsAssignableFrom(t))
+				.SelectMany(t => t.GetMethods())
+				.Where(m => m.HasRouteAttributes());
 		}
 
 		private static Route MapRoute(this RouteCollection routeCollection, RouteBuilder routeBuilder)

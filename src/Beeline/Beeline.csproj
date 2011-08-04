@@ -50,7 +50,6 @@
     <Compile Include="..\VersionAssemblyInfo.cs">
       <Link>Properties\VersionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DiscoverActionMethods.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="MethodInfoExtensions.cs" />
     <Compile Include="RouteBuilder.cs" />
