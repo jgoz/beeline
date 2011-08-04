@@ -15,7 +15,9 @@
         <ALIGN_MULTIPLE_DECLARATION>False</ALIGN_MULTIPLE_DECLARATION>
         <ALIGN_MULTLINE_TYPE_PARAMETER_CONSTRAINS>False</ALIGN_MULTLINE_TYPE_PARAMETER_CONSTRAINS>
         <ALIGN_MULTLINE_TYPE_PARAMETER_LIST>False</ALIGN_MULTLINE_TYPE_PARAMETER_LIST>
+        <ARRANGE_MODIFIER_IN_EXISTING_CODE>False</ARRANGE_MODIFIER_IN_EXISTING_CODE>
         <BLANK_LINES_AROUND_SINGLE_LINE_INVOCABLE>1</BLANK_LINES_AROUND_SINGLE_LINE_INVOCABLE>
+        <EXPLICIT_PRIVATE_MODIFIER>False</EXPLICIT_PRIVATE_MODIFIER>
         <INDENT_ANONYMOUS_METHOD_BLOCK>False</INDENT_ANONYMOUS_METHOD_BLOCK>
         <INDENT_EMBRACED_INITIALIZER_BLOCK>False</INDENT_EMBRACED_INITIALIZER_BLOCK>
         <INITIALIZER_BRACES>NEXT_LINE</INITIALIZER_BRACES>
@@ -370,6 +372,20 @@
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="aa_bb" StaticnessKind="Static, Instance" AccessRight="Private, Protected, ProtectedInternal, Internal, Public" Description="">
+        <ElementKinds>
+          <Kind Name="Machine.Specifications_Behavior" />
+          <Kind Name="Machine.Specifications_Context" />
+          <Kind Name="Machine.Specifications_ContextBase" />
+          <Kind Name="Machine.Specifications_Specification" />
+          <Kind Name="Machine.Specifications_SupportingField" />
+          <Kind Name="Machine.Specifications_Field" />
+          <Kind Name="Machine.Specifications_Constant" />
+          <Kind Name="Machine.Specifications_Local" />
+        </ElementKinds>
+        <ExtraRule Prefix="" Suffix="" Style="AaBb" />
+        <ExtraRule Prefix="" Suffix="" Style="aaBb" />
+      </UserRule>
     </Naming2>
   </CodeStyleSettings>
 </Configuration>
