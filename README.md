@@ -48,7 +48,7 @@ public class AccountController : Controller
 }
 ```
 
-This arguably clearer and helps us live DRY.
+This is arguably clearer and helps us live DRY.
 
 ## API Documentation and Examples
 
