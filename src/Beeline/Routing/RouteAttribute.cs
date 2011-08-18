@@ -8,10 +8,16 @@
 	/// Adds an MVC route definition to a controller action method.
 	/// </summary>
 	/// <remarks>
+	/// <para>
 	/// The <see cref="RouteAttribute"/> attribute provides an alternate way of specifying custom route
 	/// definitions in ASP.NET MVC applications. Instead of defining routes in a central location using
 	/// <see cref="RouteCollectionExtensions.MapRoute(RouteCollection,string,string)"/> or its overloads,
 	/// routes are defined as attributes of the action methods to which they apply.
+	/// </para>
+	/// <para>
+	/// Default values and constraints cannot be set using a <see cref="RouteAttribute"/> due to limitations
+	/// in the .NET Framework, in which attribute parameters must be constant expressions.
+	/// </para>
 	/// </remarks>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 	public class RouteAttribute : Attribute
@@ -47,26 +53,5 @@
 		/// If unset, <see cref="Name"/> will default to <c>Verbs.ControllerName.ActionName</c>.
 		/// </remarks>
 		public String Name { get; set; }
-
-		/// <summary>
-		/// Gets or sets the default values for any defined route parameters. May be null.
-		/// </summary>
-		public Object Defaults { get; set; }
-
-		/// <summary>
-		/// Gets or sets an object that defines the parameter constraints for this route. May be null.
-		/// </summary>
-		/// <remarks>
-		/// <para>
-		///	If set, the properties defined in the <see cref="Constraints"/> object will be evaluated during route matching.
-		///	If a constraint property name matches a URL parameter defined in <see cref="UrlPattern"/>, the constraint will only apply
-		///	to the matching parameter. If the property name does not match any URL parameters, the constraint will apply to the entire route.
-		/// </para>
-		/// <para>
-		///	Constrant properties may be defined as strings, which will be evaluated as regular expressions, or they may be
-		///	defined as instances of classes that implement <see cref="IRouteConstraint"/>.
-		/// </para>
-		/// </remarks>
-		public Object Constraints { get; set; }
 	}
 }

@@ -47,12 +47,12 @@
 		{
 			Name = routeAttribute.Name ?? Verbs + "." + ControllerName + "." + ActionName;
 			Url = routeAttribute.UrlPattern;
-			Defaults = new RouteValueDictionary(routeAttribute.Defaults ?? new Object())
+			Defaults = new RouteValueDictionary
 			{
 				{ "controller", ControllerName },
 				{ "action", ActionName }
 			};
-			Constraints = new RouteValueDictionary(routeAttribute.Constraints ?? new Object())
+			Constraints = new RouteValueDictionary
 			{
 				{ "isValidMethod", new HttpMethodConstraint(ExpandVerbs()) }
 			};
