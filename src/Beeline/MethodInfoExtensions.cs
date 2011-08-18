@@ -16,7 +16,17 @@
 
 		public static IEnumerable<RouteAttribute> GetRouteAttributes(this MethodInfo methodInfo)
 		{
-			return methodInfo.GetCustomAttributes(typeof(RouteAttribute), false).Cast<RouteAttribute>();
+			return methodInfo.GetCustomAttributes<RouteAttribute>();
+		}
+
+		public static IEnumerable<DefaultAttribute> GetDefaultAttributes(this MethodInfo methodInfo)
+		{
+			return methodInfo.GetCustomAttributes<DefaultAttribute>();
+		}
+
+		public static IEnumerable<TAttribute> GetCustomAttributes<TAttribute>(this MethodInfo methodInfo)
+		{
+			return methodInfo.GetCustomAttributes(typeof(TAttribute), false).Cast<TAttribute>();
 		}
 
 		public static HttpVerbs GetHttpVerbs(this MethodInfo method)

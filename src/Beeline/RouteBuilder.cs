@@ -1,6 +1,7 @@
 ﻿namespace Beeline
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Linq;
 	using System.Reflection;
 	using System.Web.Mvc;
@@ -25,6 +26,7 @@
 
 			InitializeMetaData();
 			InitializeRouteData(actionMethod.GetRouteAttributes().Single());
+			InitializeDefaultParameterValues(actionMethod.GetDefaultAttributes());
 		}
 
 		public String ActionName { get; private set; }
@@ -56,6 +58,12 @@
 			{
 				{ "isValidMethod", new HttpMethodConstraint(ExpandVerbs()) }
 			};
+		}
+
+		private void InitializeDefaultParameterValues(IEnumerable<DefaultAttribute> defaultAttributes)
+		{
+			foreach (DefaultAttribute @default in defaultAttributes)
+				Defaults.Add(@default.Name, @default.Value);
 		}
 
 		private String[] ExpandVerbs()
