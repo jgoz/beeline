@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beeline", "Beeline\Beeline.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beeline.Example", "..\tests\Beeline.Example\Beeline.Example.csproj", "{722AACB5-DF2A-4DDA-8041-3CB97B2D1C56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beeline.Tests", "..\tests\Beeline.Tests\Beeline.Tests.csproj", "{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{722AACB5-DF2A-4DDA-8041-3CB97B2D1C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{722AACB5-DF2A-4DDA-8041-3CB97B2D1C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{722AACB5-DF2A-4DDA-8041-3CB97B2D1C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{058E220D-A118-4D7C-996A-A899E005DC98} = {D8023CE5-E17E-4120-86B4-DF1C23409B22}
 		{722AACB5-DF2A-4DDA-8041-3CB97B2D1C56} = {0DCCC327-BE31-4F7F-9DAD-1AB42DBF6C27}
+		{DB92BE3E-94BD-4FBC-A6E3-8CFFF7B214CA} = {0DCCC327-BE31-4F7F-9DAD-1AB42DBF6C27}
 	EndGlobalSection
 EndGlobal
