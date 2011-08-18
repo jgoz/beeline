@@ -1,10 +1,9 @@
-﻿namespace Beeline.Tests
+﻿namespace Beeline.Tests.Specs
 {
 	using System;
 	using System.Web.Mvc;
 	using System.Web.Routing;
 	using Beeline.Routing;
-	using Beeline.Tests.Helpers;
 	using Machine.Specifications;
 
 	[Subject("Route attributes")]
@@ -153,44 +152,9 @@
 			exception.ShouldBeOfType<InvalidOperationException>();
 	}
 
-	public abstract class RouteSpecs
+	public abstract class RouteSpecs : RoutingSpecContext
 	{
-		protected static RouteCollection routes;
-
-		Establish context = () =>
-			routes = new RouteCollection();
-
-		protected static RouteData ByUrl(String url, HttpVerbs method = HttpVerbs.Get)
-		{
-			return routes.GetRouteData(new HttpContextStub(requestUrl: "~/" + url, method: method));
-		}
-
-		protected static RouteData Get(String url)
-		{
-			return ByUrl(url);
-		}
-
-		protected static RouteData Post(String url)
-		{
-			return ByUrl(url, HttpVerbs.Post);
-		}
-
-		protected static RouteData Put(String url)
-		{
-			return ByUrl(url, HttpVerbs.Put);
-		}
-
-		protected static RouteData Delete(String url)
-		{
-			return ByUrl(url, HttpVerbs.Delete);
-		}
-
-		protected static Route ByName(String name)
-		{
-			return routes[name] as Route;
-		}
-
-		internal sealed class TestController : ControllerBase
+		protected sealed class TestController : ControllerBase
 		{
 			[Route("test/basic")]
 			public ActionResult Basic()
@@ -222,7 +186,7 @@
 			}
 		}
 
-		internal sealed class TestNonActionController : ControllerBase
+		protected sealed class TestNonActionController : ControllerBase
 		{
 			[NonAction, Route("test/nonaction")]
 			public ActionResult NonAction()

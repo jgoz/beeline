@@ -49,10 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\RouteExtensions.cs" />
-    <Compile Include="RouteSpecs.cs" />
+    <Compile Include="RouteExtensions.cs" />
+    <Compile Include="Specs\RouteSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\SystemWebStubs.cs" />
+    <Compile Include="SystemWebStubs.cs" />
+    <Compile Include="RoutingSpecContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

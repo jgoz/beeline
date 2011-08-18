@@ -1,4 +1,4 @@
-﻿namespace Beeline.Tests.Helpers
+﻿namespace Beeline.Tests
 {
 	using System.Collections.Generic;
 	using System.Linq;
