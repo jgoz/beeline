@@ -36,7 +36,7 @@
 		public RouteAttribute(String urlPattern)
 		{
 			if (urlPattern == null)
-				throw new ArgumentNullException("urlPattern", "A URL pattern is required for a route definition.");
+				throw new ArgumentNullException("urlPattern");
 
 			_urlPattern = urlPattern;
 		}

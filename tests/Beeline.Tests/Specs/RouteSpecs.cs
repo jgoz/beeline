@@ -1,14 +1,13 @@
-﻿namespace Beeline.Tests
+﻿namespace Beeline.Tests.Specs
 {
 	using System;
 	using System.Web.Mvc;
 	using System.Web.Routing;
 	using Beeline.Routing;
-	using Beeline.Tests.Helpers;
 	using Machine.Specifications;
 
 	[Subject("Route attributes")]
-	public class when_only_a_url_pattern_is_specified : RoutingSpecs
+	public class when_only_a_url_pattern_is_specified : RouteSpecs
 	{
 		Because of = () =>
 			routes.MapRoutesInController<TestController>();
@@ -48,7 +47,7 @@
 	}
 
 	[Subject("Route attributes")]
-	public class when_a_name_is_specified : RoutingSpecs
+	public class when_a_name_is_specified : RouteSpecs
 	{
 		Because of = () =>
 			routes.MapRoutesInController<TestController>();
@@ -67,7 +66,7 @@
 	}
 
 	[Subject("Route attributes")]
-	public class when_the_action_method_responds_to_http_post_requests : RoutingSpecs
+	public class when_the_action_method_responds_to_http_post_requests : RouteSpecs
 	{
 		Because of = () =>
 			routes.MapRoutesInController<TestController>();
@@ -92,7 +91,7 @@
 	}
 
 	[Subject("Route attributes")]
-	public class when_the_action_method_responds_to_http_get_and_post_requests : RoutingSpecs
+	public class when_the_action_method_responds_to_http_get_and_post_requests : RouteSpecs
 	{
 		Because of = () =>
 			routes.MapRoutesInController<TestController>();
@@ -117,7 +116,7 @@
 	}
 
 	[Subject("Route attributes")]
-	public class when_the_action_method_has_an_accept_verbs_attribute_with_put_and_delete : RoutingSpecs
+	public class when_the_action_method_has_an_accept_verbs_attribute_with_put_and_delete : RouteSpecs
 	{
 		Because of = () =>
 			routes.MapRoutesInController<TestController>();
@@ -142,7 +141,7 @@
 	}
 
 	[Subject("Route attributes")]
-	public class when_a_controller_method_has_a_non_action_attribute : RoutingSpecs
+	public class when_a_controller_method_has_a_non_action_attribute : RouteSpecs
 	{
 		static Exception exception;
 
@@ -153,44 +152,9 @@
 			exception.ShouldBeOfType<InvalidOperationException>();
 	}
 
-	public abstract class RoutingSpecs
+	public abstract class RouteSpecs : RoutingSpecContext
 	{
-		protected static RouteCollection routes;
-
-		Establish context = () =>
-			routes = new RouteCollection();
-
-		protected static RouteData ByUrl(String url, HttpVerbs method = HttpVerbs.Get)
-		{
-			return routes.GetRouteData(new HttpContextStub(requestUrl: "~/" + url, method: method));
-		}
-
-		protected static RouteData Get(String url)
-		{
-			return ByUrl(url);
-		}
-
-		protected static RouteData Post(String url)
-		{
-			return ByUrl(url, HttpVerbs.Post);
-		}
-
-		protected static RouteData Put(String url)
-		{
-			return ByUrl(url, HttpVerbs.Put);
-		}
-
-		protected static RouteData Delete(String url)
-		{
-			return ByUrl(url, HttpVerbs.Delete);
-		}
-
-		protected static Route ByName(String name)
-		{
-			return routes[name] as Route;
-		}
-
-		internal sealed class TestController : ControllerBase
+		protected sealed class TestController : ControllerBase
 		{
 			[Route("test/basic")]
 			public ActionResult Basic()
@@ -222,7 +186,7 @@
 			}
 		}
 
-		internal sealed class TestNonActionController : ControllerBase
+		protected sealed class TestNonActionController : ControllerBase
 		{
 			[NonAction, Route("test/nonaction")]
 			public ActionResult NonAction()
