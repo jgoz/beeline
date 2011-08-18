@@ -17,3 +17,5 @@ _ReSharper.*
 ~$*
 lib/packages
 App_Data
+*.js
+!*unobtrusive*.js
