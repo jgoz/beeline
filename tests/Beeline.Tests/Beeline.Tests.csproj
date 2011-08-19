@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RouteExtensions.cs" />
+    <Compile Include="Specs\RouteInitializerSpecs.cs" />
     <Compile Include="Specs\RouteSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specs\UrlParamSpecs.cs" />

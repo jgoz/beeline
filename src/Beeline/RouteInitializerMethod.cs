@@ -18,7 +18,7 @@
 		{
 			var parameters = initializer.GetParameters();
 
-			if (parameters.Count() != 1 || !typeof(RouteCollection).IsAssignableFrom(parameters.Single().GetType()))
+			if (parameters.Count() != 1 || !typeof(RouteCollection).IsAssignableFrom(parameters.Single().ParameterType))
 				throw new InvalidOperationException(GetExceptionMessage(initializer, "must accept a RouteCollection as its only parameter."));
 
 			if (!initializer.IsStatic)
