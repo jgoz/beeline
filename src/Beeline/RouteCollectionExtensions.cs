@@ -13,6 +13,8 @@
 	/// </summary>
 	public static class RouteCollectionExtensions
 	{
+		private const BindingFlags RouteInitializerFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+
 		/// <summary>
 		/// Searches the assembly containing <typeparamref name="T"/> for <see cref="RouteAttribute"/> declarations
 		/// and maps the results in a specified route collection.
@@ -38,6 +40,8 @@
 			if (assembly == null)
 				throw new ArgumentNullException("assembly");
 
+			routeCollection.InvokeRouteInitializers(FindInitializerMethods(assembly));
+
 			return routeCollection.MapActionMethodsToRoutes(FindActionMethods(assembly));
 		}
 
@@ -50,15 +54,15 @@
 		/// <returns>A list of <see cref="Route"/> objects added to <paramref name="routeCollection"/>.</returns>
 		public static IList<Route> MapRoutesInController<TController>(this RouteCollection routeCollection) where TController : ControllerBase
 		{
-			return routeCollection.MapActionMethodsToRoutes(typeof(TController).GetMethods().Where(m => m.HasRouteAttributes()));
+			routeCollection.InvokeRouteInitializers(FindInitializerMethods(typeof(TController)));
+
+			return routeCollection.MapActionMethodsToRoutes(FindActionMethods(typeof(TController)));
 		}
 
-		private static IEnumerable<MethodInfo> FindActionMethods(Assembly assembly)
+		private static void InvokeRouteInitializers(this RouteCollection routeCollection, IEnumerable<MethodInfo> routeInitializers)
 		{
-			return assembly.GetTypes()
-				.Where(t => typeof(ControllerBase).IsAssignableFrom(t))
-				.SelectMany(t => t.GetMethods())
-				.Where(m => m.HasRouteAttributes());
+			foreach (MethodInfo initializer in routeInitializers)
+				RouteInitializerMethod.Invoke(initializer, routeCollection);
 		}
 
 		private static IList<Route> MapActionMethodsToRoutes(this RouteCollection routeCollection, IEnumerable<MethodInfo> actionMethods)
@@ -77,6 +81,34 @@
 			route.Constraints = routeBuilder.Constraints;
 
 			return route;
+		}
+
+		private static IEnumerable<MethodInfo> FindActionMethods(Assembly assembly)
+		{
+			return assembly.GetTypes()
+				.Where(t => typeof(ControllerBase).IsAssignableFrom(t))
+				.SelectMany(t => t.GetMethods())
+				.Where(m => m.HasRouteAttributes());
+		}
+
+		private static IEnumerable<MethodInfo> FindActionMethods(Type controllerType)
+		{
+			return controllerType.GetMethods().Where(m => m.HasRouteAttributes());
+		}
+
+		private static IEnumerable<MethodInfo> FindInitializerMethods(Assembly assembly)
+		{
+			return assembly.GetTypes()
+				.Where(t => typeof(ControllerBase).IsAssignableFrom(t))
+				.SelectMany(t => t.GetMethods(RouteInitializerFlags))
+				.Where(m => m.IsRouteInitializer());
+		}
+
+		private static IEnumerable<MethodInfo> FindInitializerMethods(Type controllerType)
+		{
+			return controllerType
+				.GetMethods(RouteInitializerFlags)
+				.Where(m => m.IsRouteInitializer());
 		}
 	}
 }
