@@ -14,6 +14,11 @@
 			return methodInfo.GetRouteAttributes().Any();
 		}
 
+		public static Boolean IsRouteInitializer(this MethodInfo methodInfo)
+		{
+			return methodInfo.GetCustomAttributes<RouteInitializerAttribute>().Any();
+		}
+
 		public static IEnumerable<RouteAttribute> GetRouteAttributes(this MethodInfo methodInfo)
 		{
 			return methodInfo.GetCustomAttributes<RouteAttribute>();

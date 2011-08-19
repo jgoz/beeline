@@ -38,7 +38,9 @@
 			if (assembly == null)
 				throw new ArgumentNullException("assembly");
 
-			return routeCollection.MapActionMethodsToRoutes(FindActionMethods(assembly));
+			routeCollection.InvokeRouteInitializers(FindControllerMethods(assembly, m => m.IsRouteInitializer()));
+
+			return routeCollection.MapActionMethodsToRoutes(FindControllerMethods(assembly, m => m.HasRouteAttributes()));
 		}
 
 		/// <summary>
@@ -50,15 +52,15 @@
 		/// <returns>A list of <see cref="Route"/> objects added to <paramref name="routeCollection"/>.</returns>
 		public static IList<Route> MapRoutesInController<TController>(this RouteCollection routeCollection) where TController : ControllerBase
 		{
-			return routeCollection.MapActionMethodsToRoutes(typeof(TController).GetMethods().Where(m => m.HasRouteAttributes()));
+			routeCollection.InvokeRouteInitializers(FindControllerMethods(typeof(TController), m => m.IsRouteInitializer()));
+
+			return routeCollection.MapActionMethodsToRoutes(FindControllerMethods(typeof(TController), m => m.HasRouteAttributes()));
 		}
 
-		private static IEnumerable<MethodInfo> FindActionMethods(Assembly assembly)
+		private static void InvokeRouteInitializers(this RouteCollection routeCollection, IEnumerable<MethodInfo> routeInitializers)
 		{
-			return assembly.GetTypes()
-				.Where(t => typeof(ControllerBase).IsAssignableFrom(t))
-				.SelectMany(t => t.GetMethods())
-				.Where(m => m.HasRouteAttributes());
+			foreach (MethodInfo initializer in routeInitializers)
+				RouteInitializerMethod.Invoke(initializer, routeCollection);
 		}
 
 		private static IList<Route> MapActionMethodsToRoutes(this RouteCollection routeCollection, IEnumerable<MethodInfo> actionMethods)
@@ -77,6 +79,19 @@
 			route.Constraints = routeBuilder.Constraints;
 
 			return route;
+		}
+
+		private static IEnumerable<MethodInfo> FindControllerMethods(Assembly assembly, Func<MethodInfo, Boolean> predicate)
+		{
+			return assembly.GetTypes()
+				.Where(t => typeof(ControllerBase).IsAssignableFrom(t))
+				.SelectMany(t => t.GetMethods())
+				.Where(predicate);
+		}
+
+		private static IEnumerable<MethodInfo> FindControllerMethods(Type controllerType, Func<MethodInfo, Boolean> predicate)
+		{
+			return controllerType.GetMethods().Where(predicate);
 		}
 	}
 }

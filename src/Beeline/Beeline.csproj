@@ -54,7 +54,9 @@
     <Compile Include="MethodInfoExtensions.cs" />
     <Compile Include="RouteBuilder.cs" />
     <Compile Include="RouteCollectionExtensions.cs" />
+    <Compile Include="RouteInitializerMethod.cs" />
     <Compile Include="Routing\OptionalUrlParamAttribute.cs" />
+    <Compile Include="Routing\RouteInitializerAttribute.cs" />
     <Compile Include="Routing\UrlParamAttribute.cs" />
     <Compile Include="Routing\RouteAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
