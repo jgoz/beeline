@@ -26,7 +26,7 @@
 
 			InitializeMetaData();
 			InitializeRouteData(actionMethod.GetRouteAttributes().Single());
-			InitializeDefaultParameterValues(actionMethod.GetDefaultAttributes());
+			InitializeUrlParameters(actionMethod.GetUrlParamAttributes());
 		}
 
 		public String ActionName { get; private set; }
@@ -60,10 +60,13 @@
 			};
 		}
 
-		private void InitializeDefaultParameterValues(IEnumerable<DefaultAttribute> defaultAttributes)
+		private void InitializeUrlParameters(IEnumerable<UrlParamAttribute> urlParams)
 		{
-			foreach (DefaultAttribute @default in defaultAttributes)
-				Defaults.Add(@default.Name, @default.Value);
+			foreach (UrlParamAttribute param in urlParams.Where(p => p.Default != null))
+				Defaults.Add(param.Name, param.Default);
+
+			foreach (UrlParamAttribute param in urlParams.Where(p => p.Constraint != null))
+				Constraints.Add(param.Name, param.Constraint);
 		}
 
 		private String[] ExpandVerbs()

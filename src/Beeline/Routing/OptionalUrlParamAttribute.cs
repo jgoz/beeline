@@ -7,16 +7,16 @@
 	/// Sets a URL parameter as optional for an MVC action method.
 	/// </summary>
 	/// <remarks>
-	/// A <see cref="OptionalAttribute"/> declaration must be used on a method that also has a
+	/// A <see cref="OptionalUrlParamAttribute"/> declaration must be used on a method that also has a
 	/// <see cref="RouteAttribute"/> declaration.
 	/// </remarks>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-	public class OptionalAttribute : DefaultAttribute
+	public class OptionalUrlParamAttribute : UrlParamAttribute
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="OptionalAttribute"/> class.
+		/// Initializes a new instance of the <see cref="OptionalUrlParamAttribute"/> class.
 		/// </summary>
 		/// <param name="name">The URL parameter name.</param>
-		public OptionalAttribute(String name) : base(name, UrlParameter.Optional) { }
+		public OptionalUrlParamAttribute(String name) : base(name, UrlParameter.Optional) { }
 	}
 }

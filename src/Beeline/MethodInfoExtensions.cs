@@ -19,9 +19,9 @@
 			return methodInfo.GetCustomAttributes<RouteAttribute>();
 		}
 
-		public static IEnumerable<DefaultAttribute> GetDefaultAttributes(this MethodInfo methodInfo)
+		public static IEnumerable<UrlParamAttribute> GetUrlParamAttributes(this MethodInfo methodInfo)
 		{
-			return methodInfo.GetCustomAttributes<DefaultAttribute>();
+			return methodInfo.GetCustomAttributes<UrlParamAttribute>();
 		}
 
 		public static IEnumerable<TAttribute> GetCustomAttributes<TAttribute>(this MethodInfo methodInfo)
